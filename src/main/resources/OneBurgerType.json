@@ -1,0 +1,49 @@
+[
+  {
+    "burgerName": "Basic Hamburger",
+    "meatType": {
+      "meat": "CHICKEN"
+    },
+    "breadType": {
+      "bread": "WHITE"
+    },
+    "addonsList": {
+      "addonsList": [
+        "COCA_COLA"
+      ]
+    },
+    "preparationTime": 30
+  },
+  {
+    "burgerName": "Healthy Hamburger",
+    "meatType": {
+      "meat": "EAGLE"
+    },
+    "breadType": {
+      "bread": "BLACK_WITH_ADDONS"
+    },
+    "addonsList": {
+      "addonsList": [
+        "ONION",
+        "CARROT"
+      ]
+    },
+    "preparationTime": 0
+  },
+  {
+    "burgerName": "Deluxe Hamburger",
+    "meatType": {
+      "meat": "CHICKEN"
+    },
+    "breadType": {
+      "bread": "WHITE"
+    },
+    "addonsList": {
+      "addonsList": [
+        "CHIPS",
+        "COCA_COLA"
+      ]
+    },
+    "preparationTime": 30
+  }
+]
