@@ -9,10 +9,11 @@
     },
     "addonsList": {
       "addonsList": [
-        "COCA_COLA"
+        "SPICY",
+        "CARROT"
       ]
     },
-    "preparationTime": 30
+    "preparationTime": 5
   },
   {
     "burgerName": "Healthy Hamburger",
@@ -28,7 +29,7 @@
         "CARROT"
       ]
     },
-    "preparationTime": 0
+    "preparationTime": 10
   },
   {
     "burgerName": "Deluxe Hamburger",

@@ -19,6 +19,10 @@ public class AdditionalComponents {
         return addonsList;
     }
 
+    public void setAddonsList(List<Additions> addonsList) {
+        this.addonsList = addonsList;
+    }
+
     @JsonIgnore
     public boolean isEmpty() {
         return (this.addonsList.isEmpty());

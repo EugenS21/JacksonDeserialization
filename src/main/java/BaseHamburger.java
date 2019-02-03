@@ -9,25 +9,38 @@ import enums.Additions;
 import static constants.GeneralConstants.BASE_HAMBURGER_NAME;
 import static constants.GeneralConstants.DELUXE_HAMBURGER_NAME;
 
-public class BaseHamburger {
-    private final AdditionalComponents addonsList;
+public class BaseHamburger extends JacksonObjectSerializer {
     private String burgerName;
     private MeatType meatType;
     private BreadType breadType;
+    private final AdditionalComponents addonsList;
     private int preparationTime;
     private int burgerPrice = 0;
-
+    private CustomThread preparationThread = new CustomThread();
     @JsonIgnore
-
+    private JacksonObjectSerializer jacksonObjectSerializer = new JacksonObjectSerializer();
 
     public BaseHamburger() {
         this.addonsList = new AdditionalComponents();
         this.burgerName = BASE_HAMBURGER_NAME;
         this.breadType = new BreadType();
         this.meatType = new MeatType();
-        this.burgerPrice +=
-                (breadType.getBread().getBreadPrice() + meatType.getMeat().getMeatPrice());
-        this.preparationTime = 30;
+        this.burgerPrice =
+                breadType.getBread().getBreadPrice() + meatType.getMeat().getMeatPrice();
+        this.preparationTime = 0;
+    }
+
+    public void setPreparationThread() {
+        this.preparationThread.start();
+    }
+
+    private int getAdditionTotalPrice() {
+        this.setBurgerPrice(this.burgerPrice + this.addonsList
+                .getAddonsList()
+                .stream()
+                .mapToInt(a -> a.getPrice())
+                .sum());
+        return this.burgerPrice;
     }
 
     public BaseHamburger(BreadType breadType, MeatType meatType) {
@@ -39,7 +52,6 @@ public class BaseHamburger {
         this.addonsList = new AdditionalComponents();
     }
 
-    @JsonIgnore
     public int getBurgerPrice() {
         return burgerPrice;
     }
@@ -123,6 +135,7 @@ public class BaseHamburger {
     }
 
     public void getDetailedInfo() {
+        getAdditionTotalPrice();
         System.out.println("You want to buy\n" +
                 "A " + this.burgerName + "\n" +
                 "With " + this.breadType.getBread().getBreadName()
@@ -137,5 +150,18 @@ public class BaseHamburger {
                     + " addon for: " + e.getPrice()));
         }
         System.out.println("\t\t Total Price: " + this.burgerPrice);
+    }
+
+    private class CustomThread extends Thread {
+        @Override
+        public void run() {
+            try {
+                sleep(preparationTime * 1000);
+                getAdditionTotalPrice();
+                System.out.println(jacksonObjectSerializer.getJsonContent(BaseHamburger.this));
+            } catch (InterruptedException e) {
+                System.out.println("Wasn't able to wait for specific time");
+            }
+        }
     }
 }
