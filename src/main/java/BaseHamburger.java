@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import customexceptions.InvalidInstanceException;
 import customexceptions.UnsupportedTypeException;
 import enums.Additions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static constants.GeneralConstants.BASE_HAMBURGER_NAME;
 import static constants.GeneralConstants.DELUXE_HAMBURGER_NAME;
@@ -16,9 +18,11 @@ public class BaseHamburger extends JacksonObjectSerializer {
     private final AdditionalComponents addonsList;
     private int preparationTime;
     private int burgerPrice = 0;
-    private CustomThread preparationThread = new CustomThread();
     @JsonIgnore
     private JacksonObjectSerializer jacksonObjectSerializer = new JacksonObjectSerializer();
+    @JsonIgnore
+    private static Logger baseLogger = LoggerFactory.getLogger(BaseHamburger.class);
+
 
     public BaseHamburger() {
         this.addonsList = new AdditionalComponents();
@@ -28,10 +32,6 @@ public class BaseHamburger extends JacksonObjectSerializer {
         this.burgerPrice =
                 breadType.getBread().getBreadPrice() + meatType.getMeat().getMeatPrice();
         this.preparationTime = 0;
-    }
-
-    public void setPreparationThread() {
-        this.preparationThread.start();
     }
 
     private int getAdditionTotalPrice() {
@@ -110,9 +110,9 @@ public class BaseHamburger extends JacksonObjectSerializer {
             } else
                 throw new UnsupportedTypeException();
         } catch (UnsupportedTypeException e) {
-            System.out.println("Addition is not supported for " + this.getBurgerName());
+            baseLogger.info("Addition is not supported for " + this.getBurgerName());
         } catch (InvalidInstanceException e) {
-            System.out.println("You want to add already existing item");
+            baseLogger.error("You want to add already existing item");
         }
 
     }
@@ -128,9 +128,9 @@ public class BaseHamburger extends JacksonObjectSerializer {
             } else
                 throw new UnsupportedTypeException();
         } catch (UnsupportedTypeException e) {
-            System.out.println("Addition is not supported for " + this.getBurgerName());
+            baseLogger.info("Addition is not supported for " + this.getBurgerName());
         } catch (InvalidInstanceException e) {
-            System.out.println("You want to remove an unexisting item");
+            baseLogger.warn("You want to remove a non existing item");
         }
     }
 
@@ -150,18 +150,5 @@ public class BaseHamburger extends JacksonObjectSerializer {
                     + " addon for: " + e.getPrice()));
         }
         System.out.println("\t\t Total Price: " + this.burgerPrice);
-    }
-
-    private class CustomThread extends Thread {
-        @Override
-        public void run() {
-            try {
-                sleep(preparationTime * 1000);
-                getAdditionTotalPrice();
-                System.out.println(jacksonObjectSerializer.getJsonContent(BaseHamburger.this));
-            } catch (InterruptedException e) {
-                System.out.println("Wasn't able to wait for specific time");
-            }
-        }
     }
 }

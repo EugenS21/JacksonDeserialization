@@ -16,6 +16,36 @@
     "preparationTime": 5
   },
   {
+    "burgerName": "Basic Hamburger",
+    "meatType": {
+      "meat": "CHICKEN"
+    },
+    "breadType": {
+      "bread": "WHITE"
+    },
+    "addonsList": {
+      "addonsList": [
+        "SPICY"
+      ]
+    },
+    "preparationTime": 25
+  },
+  {
+    "burgerName": "Deluxe Hamburger",
+    "meatType": {
+      "meat": "CHICKEN"
+    },
+    "breadType": {
+      "bread": "BLACK"
+    },
+    "addonsList": {
+      "addonsList": [
+        "COCA_COLA"
+      ]
+    },
+    "preparationTime": 25
+  },
+  {
     "burgerName": "Healthy Hamburger",
     "meatType": {
       "meat": "EAGLE"
