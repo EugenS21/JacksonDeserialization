@@ -1,10 +1,9 @@
-import classes_components.AdditionalComponents;
-import classes_components.BreadType;
-import classes_components.MeatType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import customexceptions.InvalidInstanceException;
 import customexceptions.UnsupportedTypeException;
 import enums.Additions;
+import enums.Bread;
+import enums.Meat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,11 +12,11 @@ import static constants.GeneralConstants.DELUXE_HAMBURGER_NAME;
 
 public class BaseHamburger extends JacksonObjectSerializer {
     private String burgerName;
-    private MeatType meatType;
-    private BreadType breadType;
-    private final AdditionalComponents addonsList;
+    private Meat meatType;
+    private Bread breadType;
+    private Additions addonsList;
     private int preparationTime;
-    private int burgerPrice = 0;
+    private int burgerPrice;
     @JsonIgnore
     private JacksonObjectSerializer jacksonObjectSerializer = new JacksonObjectSerializer();
     @JsonIgnore
@@ -25,31 +24,22 @@ public class BaseHamburger extends JacksonObjectSerializer {
 
 
     public BaseHamburger() {
-        this.addonsList = new AdditionalComponents();
+        this.addonsList = new Additions();
         this.burgerName = BASE_HAMBURGER_NAME;
-        this.breadType = new BreadType();
-        this.meatType = new MeatType();
+        this.breadType = new Bread();
+        this.meatType = new Meat();
         this.burgerPrice =
-                breadType.getBread().getBreadPrice() + meatType.getMeat().getMeatPrice();
+                breadType.getBreadPrice() + meatType.getMeatPrice();
         this.preparationTime = 0;
     }
 
-    private int getAdditionTotalPrice() {
-        this.setBurgerPrice(this.burgerPrice + this.addonsList
-                .getAddonsList()
-                .stream()
-                .mapToInt(a -> a.getPrice())
-                .sum());
-        return this.burgerPrice;
-    }
-
-    public BaseHamburger(BreadType breadType, MeatType meatType) {
+    public BaseHamburger(Bread breadType, Meat meatType) {
         this.burgerName = BASE_HAMBURGER_NAME;
         this.breadType = breadType;
         this.meatType = meatType;
-        this.burgerPrice = breadType.getBread().getBreadPrice()
-                + meatType.getMeat().getMeatPrice();
-        this.addonsList = new AdditionalComponents();
+        this.burgerPrice = breadType.getBreadPrice()
+                + meatType.getMeatPrice();
+        this.addonsList = new Additions();
     }
 
     public int getBurgerPrice() {
@@ -60,24 +50,28 @@ public class BaseHamburger extends JacksonObjectSerializer {
         this.burgerPrice = burgerPrice;
     }
 
-    public BreadType getBreadType() {
-        return breadType;
-    }
-
-    public void setBreadType(BreadType breadType) {
-        this.breadType = breadType;
-    }
-
-    public MeatType getMeatType() {
+    public Meat getMeatType() {
         return meatType;
     }
 
-    public void setMeatType(MeatType meatType) {
+    public void setMeatType(Meat meatType) {
         this.meatType = meatType;
     }
 
-    public AdditionalComponents getAddonsList() {
+    public Bread getBreadType() {
+        return breadType;
+    }
+
+    public void setBreadType(Bread breadType) {
+        this.breadType = breadType;
+    }
+
+    public Additions getAddonsList() {
         return addonsList;
+    }
+
+    public void setAddonsList(Additions addonsList) {
+        this.addonsList = addonsList;
     }
 
     public String getBurgerName() {
