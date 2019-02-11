@@ -1,11 +1,24 @@
 {
-  "burgerName": "Basic Hamburger",
-  "meatType": "CHICKEN",
-  "breadType": "WHITE",
-  "addonsList": [
-    "CARROT",
-    "SPICY"
-  ],
-  "preparationTime": 0,
-  "burgerPrice": 37
+  "basehumburgers": [
+    {
+      "burgerName": "Basic Hamburger",
+      "meatType": "CHICKEN",
+      "breadType": "WHITE",
+      "addonsList": [
+        "CARROT",
+        "LETTUCE"
+      ],
+      "preparationTime": 0
+    },
+    {
+      "burgerName": "Basic Hamburger",
+      "meatType": "CHICKEN",
+      "breadType": "WHITE",
+      "addonsList": [
+        "SPICY",
+        "ONION"
+      ],
+      "preparationTime": 0
+    }
+  ]
 }

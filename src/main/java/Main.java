@@ -12,9 +12,7 @@ public class Main {
 //            threadPool.execute(customThread);
 //        }
 //        threadPool.shutdown();
-//        BaseHamburger baseHamburger = new BaseHamburger();
-//        baseHamburger.addAddon(Additions.CARROT);
-//        baseHamburger.serializeHamburger();
+
 
         BaseHamburger[] baseHamburgers;
         JacksonObjectDeserializer jacksonObjectDeserializer = new JacksonObjectDeserializer();

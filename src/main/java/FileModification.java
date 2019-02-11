@@ -49,7 +49,7 @@ public class FileModification {
     public <T> String writeToFile(T hamsArray) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            objectMapper.writeValue(new FileOutputStream(this.filePath), hamsArray);
+            objectMapper.writeValue(new FileOutputStream(this.filePath, true), hamsArray);
             this.fileContent = Files.readAllBytes(Paths.get(JSON_PATH_SAVE));
         } catch (IOException e) {
             this.logger.error("Can't write content to file from specific path"

@@ -8,12 +8,10 @@ import java.io.IOException;
 import static constants.JsonFilePath.JSON_PATH;
 
 public class JacksonObjectDeserializer {
-    private BaseHamburger[] hamburgers;
     private FileModification fileModification;
     private Logger logger = LoggerFactory.getLogger(JacksonObjectDeserializer.class);
 
     public JacksonObjectDeserializer() {
-        this.hamburgers = null;
         fileModification = new FileModification(JSON_PATH);
     }
 

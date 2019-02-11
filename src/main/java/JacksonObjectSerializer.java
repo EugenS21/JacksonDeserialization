@@ -3,11 +3,9 @@ import static constants.JsonFilePath.JSON_PATH_SAVE;
 
 public class JacksonObjectSerializer {
     private FileModification fileModification;
-    private String JsonContent;
 
     public JacksonObjectSerializer() {
         this.fileModification = new FileModification(JSON_PATH_SAVE);
-        this.JsonContent = null;
     }
 
     public String getJsonContent(BaseHamburger hambsList) {

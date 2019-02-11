@@ -48,6 +48,7 @@ public class BaseHamburger extends JacksonObjectSerializer {
         return burgerPrice;
     }
 
+    @JsonIgnore
     public void setBurgerPrice(int burgerPrice) {
         this.burgerPrice = burgerPrice;
     }
