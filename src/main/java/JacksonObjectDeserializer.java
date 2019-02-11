@@ -1,27 +1,32 @@
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 import static constants.JsonFilePath.JSON_PATH;
 
 public class JacksonObjectDeserializer {
     private BaseHamburger[] hamburgers;
+    private FileModification fileModification;
+    private Logger logger = LoggerFactory.getLogger(JacksonObjectDeserializer.class);
 
     public JacksonObjectDeserializer() {
         this.hamburgers = null;
+        fileModification = new FileModification(JSON_PATH);
     }
 
     public BaseHamburger[] getHamburgers() {
         try {
-            byte[] jsonData =
-                    Files.readAllBytes(Paths.get(JSON_PATH));
-            ObjectMapper objectMapper = new ObjectMapper();
-            this.hamburgers = objectMapper.readValue(jsonData, BaseHamburger[].class);
+            return new ObjectMapper()
+                    .readValue(this.fileModification.readFromFile(), BaseHamburger[].class);
         } catch (IOException e) {
-            System.out.println("Cant open the file");
+            logger.error("Could not read values from the specified file "
+                    + fileModification.getFilePath()
+                    + e.getMessage()
+                    + e.getCause());
         }
-        return hamburgers;
+        return null;
     }
 }

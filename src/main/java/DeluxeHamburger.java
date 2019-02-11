@@ -1,6 +1,6 @@
-import classes_components.BreadType;
-import classes_components.MeatType;
 import enums.Additions;
+import enums.Bread;
+import enums.Meat;
 
 import static constants.GeneralConstants.DELUXE_HAMBURGER_NAME;
 
@@ -10,33 +10,33 @@ public class DeluxeHamburger extends BaseHamburger {
         super.setBurgerName(DELUXE_HAMBURGER_NAME);
     }
 
-    public DeluxeHamburger(BreadType breadType, MeatType meatType) {
+    public DeluxeHamburger(Bread breadType, Meat meatType) {
         super(breadType, meatType);
         super.setBurgerName(DELUXE_HAMBURGER_NAME);
     }
 
     @Override
-    public void addAdditions(Additions addonToAdd) {
+    public void addAddon(Additions addonToAdd) {
         try {
             if ((addonToAdd.getType().equals("Deluxe")))
-                super.addAdditions(addonToAdd);
+                super.addAddon(addonToAdd);
             else
                 throw new UnsupportedOperationException();
         } catch (UnsupportedOperationException e) {
-            System.out.println("Addition is not supported for this type of burger");
+            getBaseLogger().warn("Addition is not supported for this type of burger");
         }
 
     }
 
     @Override
-    public void removeAdditions(Additions addonToRemove) {
+    public void removeAddon(Additions addonToRemove) {
         try {
             if ((addonToRemove.getType().equals("Deluxe")))
-                this.removeAdditions(addonToRemove);
+                this.removeAddon(addonToRemove);
             else
                 throw new UnsupportedOperationException();
         } catch (UnsupportedOperationException e) {
-            System.out.println("Addition is not supported for this type of burger");
+            getBaseLogger().warn("Addition is not supported for this type of burger");
         }
     }
 }
